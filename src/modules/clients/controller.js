@@ -1,11 +1,11 @@
-const db = require('../../DB/mysql.js');
+const db = require('../../DB/mysql.js')
 
 const table = 'clients'
 
 const allItems = () => {
-    return db.getAllItems(table)
+  return db.getAllItems(table)
 }
 
 module.exports = {
-    allItems
+  allItems
 }
