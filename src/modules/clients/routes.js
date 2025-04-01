@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const responses = require('../../red/res.js');
+const controller = require('./controller.js')
 
 router.get('/', (req, res) => {
-    responses.sucess(req, res, 'All ok from clients', 200);
-    responses.error(req, res, 'Clients has an error', 500);
+    const todos = controller.allItems()
+    .then((items) => {
+        responses.sucess(req, res, items, 200)
+    })
 });
 
 module.exports = router;
