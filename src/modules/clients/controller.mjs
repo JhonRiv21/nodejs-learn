@@ -9,3 +9,7 @@ export const allItems = () => {
 export const getUniqueItem = (id) => {
   return db.getItem(table, id)
 }
+
+export const deleteId = (body) => {
+  return db.deleteItem(table, body)
+}

@@ -56,6 +56,10 @@ export const addItem = (table, data) => {
 
 }
 
-export const deleteItem = (table, id) => {
-
+export const deleteItem = (table, data) => {
+  return new Promise((resolve, reject) => {
+    conecction.query(`DELETE FROM ${table} WHERE id = ?`, data.id, (error, result) => {
+      return error ? reject(error) : resolve(result)
+    })
+  })
 }
