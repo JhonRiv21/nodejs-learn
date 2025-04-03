@@ -10,6 +10,10 @@ export const getUniqueItem = (id) => {
   return db.getItem(table, id)
 }
 
+export const addId = (body) => {
+  return db.addItem(table, body)
+}
+
 export const deleteId = (body) => {
   return db.deleteItem(table, body)
 }
