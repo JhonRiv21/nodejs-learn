@@ -1,19 +1,12 @@
-import * as db from '../../DB/mysql.mjs'
+export default async function createClientController (dbInjected) {
+  const db = dbInjected || (await import('../../DB/mysql.mjs'))
+  const { getAllItems, getItem, addItem, deleteItem } = db
+  const table = 'clients'
 
-const table = 'clients'
-
-export const allItems = () => {
-  return db.getAllItems(table)
-}
-
-export const getUniqueItem = (id) => {
-  return db.getItem(table, id)
-}
-
-export const addId = (body) => {
-  return db.addItem(table, body)
-}
-
-export const deleteId = (body) => {
-  return db.deleteItem(table, body)
+  return {
+    allItems: () => getAllItems(table),
+    getUniqueItem: (id) => getItem(table, id),
+    addId: (body) => addItem(table, body),
+    deleteId: (body) => deleteItem(table, body)
+  }
 }

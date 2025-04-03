@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { resSucess } from '../../red/res.mjs'
-import { allItems, getUniqueItem, deleteId, addId } from './controller.mjs'
+import ctrl from './index.mjs'
 const router = Router()
 
 router.get('/', getAll)
@@ -10,7 +10,7 @@ router.post('/', addOrUpdateItem)
 
 async function getAll (req, res, next) {
   try {
-    const items = await allItems()
+    const items = await ctrl.allItems()
     resSucess(req, res, items, 200)
   } catch (err) {
     next(err)
@@ -19,7 +19,7 @@ async function getAll (req, res, next) {
 
 async function getById (req, res, next) {
   try {
-    const item = await getUniqueItem(req.params.id)
+    const item = await ctrl.getUniqueItem(req.params.id)
     resSucess(req, res, item, 200)
   } catch (err) {
     next(err)
@@ -29,7 +29,7 @@ async function getById (req, res, next) {
 async function addOrUpdateItem (req, res, next) {
   let message
   try {
-    await addId(req.body)
+    await ctrl.addId(req.body)
     if (req.body.id === 0) {
       message = 'Item guardado con éxito'
     } else {
@@ -43,7 +43,7 @@ async function addOrUpdateItem (req, res, next) {
 
 async function deleteItem (req, res, next) {
   try {
-    await deleteId(req.body)
+    await ctrl.deleteId(req.body)
     resSucess(req, res, 'Item eliminado correctamente', 200)
   } catch (err) {
     next(err)
