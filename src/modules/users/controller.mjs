@@ -1,7 +1,7 @@
 export default async function createController (dbInjected) {
   const db = dbInjected || (await import('../../DB/mysql.mjs'))
   const { getAllItems, getItem, addItem, deleteItem } = db
-  const table = 'clients'
+  const table = 'users'
 
   return {
     allItems: () => getAllItems(table),
