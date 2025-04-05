@@ -6,5 +6,5 @@ export const redError = (err, req, res, next) => {
   const message = err.message || 'Internal error'
   const status = err.statusCode || 500
 
-  resError.error(req, res, message, status)
+  resError(req, res, message, status)
 }

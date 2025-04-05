@@ -52,24 +52,12 @@ export const getItem = (table, id) => {
   })
 }
 
-const updateItem = (table, data) => {
-  return new Promise((resolve, reject) => {
-    conecction.query(`UPDATE ${table} SET ? WHERE id = ?`, [data, data.id], (error, result) => {
-      return error ? reject(error) : resolve(result)
-    })
-  })
-}
-
-const createItem = (table, data) => {
-  return new Promise((resolve, reject) => {
-    conecction.query(`INSERT INTO ${table} SET ?`, [data], (error, result) => {
-      return error ? reject(error) : resolve(result)
-    })
-  })
-}
-
 export const addItem = (table, data) => {
-  return data && data.id === 0 ? createItem(table, data) : updateItem(table, data)
+  return new Promise((resolve, reject) => {
+    conecction.query(`INSERT ${table} SET ? ON DUPLICATE KEY UPDATE ?`, [data, data], (error, result) => {
+      return error ? reject(error) : resolve(result)
+    })
+  })
 }
 
 export const deleteItem = (table, data) => {
