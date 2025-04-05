@@ -1,9 +1,11 @@
+import bcrypt from 'bcrypt'
+
 export default async function createController (dbInjected) {
   const db = dbInjected || (await import('../../DB/mysql.mjs'))
   const { addItem } = db
   const table = 'auth'
 
-  const addId = (data) => {
+  const addId = async (data) => {
     const authData = {
       id: data.id
     }
@@ -13,7 +15,7 @@ export default async function createController (dbInjected) {
     }
 
     if (data.password) {
-      authData.password = data.password
+      authData.password = await bcrypt.hash(data.password.toString(), 5)
     }
 
     return addItem(table, authData)
