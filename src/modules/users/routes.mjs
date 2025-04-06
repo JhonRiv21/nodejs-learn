@@ -1,12 +1,13 @@
 import { Router } from 'express'
 import { resSucess } from '../../red/res.mjs'
+import security from './security.mjs'
 import ctrl from './index.mjs'
 const router = Router()
 
 router.get('/', getAll)
 router.get('/:id', getById)
-router.delete('/', deleteItem)
-router.post('/', addOrUpdateItem)
+router.delete('/', security(), deleteItem)
+router.post('/', security(), addOrUpdateItem)
 
 async function getAll (req, res, next) {
   try {
