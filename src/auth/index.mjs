@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { jwt as config } from '../config.mjs'
+import { mwError } from '../middlewares/errors.mjs'
 
 const secret = config.secret
 
@@ -19,11 +20,11 @@ const verifyToken = (token) => {
 
 const getToken = (authorization) => {
   if (!authorization) {
-    throw new Error('No viene token')
+    throw mwError('No viene token', 401)
   }
 
   if (!authorization.toLowerCase().startsWith('bearer ')) {
-    throw new Error('Formato inválido')
+    throw mwError('Formato inválido', 401)
   }
 
   return authorization.slice(7).trim()
